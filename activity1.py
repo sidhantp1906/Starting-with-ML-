@@ -47,8 +47,8 @@ print(f'y2 = {y2}')
 
 sum2 = 0
 for l in range(170):
-    sum = sum + y2[l]
-variance = sum/170
+    sum2 = sum2 + y2[l]
+variance = sum2/170
 print(f'variance = {variance}')
 
 standard_deviation = math.sqrt(variance)
@@ -79,12 +79,16 @@ print(f'x2 = {x2}')
 
 sum2x = 0
 for l in range(170):
-    sum2x = sum2x + y2[l]
+    sum2x = sum2x + x2[l]
 variancex = sum2x/170
 print(f'variancex = {variancex}')
 
 standard_deviationx = math.sqrt(variancex)
 print(f'standard_deviationx = {standard_deviationx}')
+
+new_x_pos = round(modex)
+new_y_pos = round(mode)
+print(f'new base station = ({new_x_pos},{new_y_pos})')
 
 values = Reference(sheet,min_row = 1,max_row = sheet.max_row,min_col = 2,max_col = 3 )
 chart = BarChart()
@@ -94,7 +98,52 @@ sheet.add_chart(chart,'e2')
 
 wb.save('activity1.xlsx')
 plt.scatter(x,y)
+plt.title('customer distribution')
+plt.xlabel('x position')
+plt.ylabel('y position')
 plt.show()
+
+area = new_x_pos*new_y_pos
+print(f'new_base_station_range = {area}')
+
+new_x = []
+new_y = []
+for t in range(170):
+    if x[t] >=new_x_pos-new_y_pos and x[t] <= area:
+        new_x.append(x[t])
+    if y[t] >= new_x_pos-new_y_pos and y[t] <= area:
+        new_y.append(y[t])
+print(f'new_x_location = {new_x}')
+print(f'new_y_location = {new_y}')
+
+xlen = len(new_x)
+ylen = len(new_y)
+print(f'{xlen},{ylen}')
+
+if xlen > ylen:
+    gap = xlen-ylen
+    for f in range(gap):
+        new_y.append(0)
+else:
+    gap = ylen-xlen
+    for f in range(gap):
+        new_x.append(0)
+print(f'gap = {gap}')
+
+print(f'final_new_x_location = {new_x}')
+print(f'final_new_y_location = {new_y}')
+
+
+plt.scatter(new_x,new_y)
+plt.title('customer newer distribution')
+plt.xlabel('x postion')
+plt.ylabel('y position')
+plt.show()
+
+
+
+
+
 
 
 
