@@ -103,15 +103,16 @@ plt.xlabel('x position')
 plt.ylabel('y position')
 plt.show()
 
+New_range = 2
 area = new_x_pos*new_y_pos
 print(f'new_base_station_range = {area}')
 
 new_x = []
 new_y = []
 for t in range(170):
-    if x[t] >=new_x_pos-new_y_pos and x[t] <= area:
+    if x[t] >=new_x_pos-new_range and x[t] <= new_x_pos+new_range:
         new_x.append(x[t])
-    if y[t] >= new_x_pos-new_y_pos and y[t] <= area:
+    if y[t] >= new_x_pos-new_range and y[t] <= new_x_pos+new_range:
         new_y.append(y[t])
 print(f'new_x_location = {new_x}')
 print(f'new_y_location = {new_y}')
